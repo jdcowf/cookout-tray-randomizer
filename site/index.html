@@ -20,7 +20,9 @@
 window.addEventListener('load', randomizeSelection())
 
 
-
+function randomElementFromArray(a) {
+    return a[Math.floor(Math.random() * a.length)]
+}
 
 function randomizeSelection() {
     fetch('/static/data/trays.json')
@@ -35,9 +37,9 @@ function randomizeSelection() {
     });
     
     function updateSelection(data) {
-        document.querySelector("#tray").innerHTML = data.trays[Math.floor(Math.random() * data.trays.length)];
-        document.querySelector("#side1").innerHTML = data.sides[Math.floor(Math.random() * data.sides.length)];
-        document.querySelector("#side2").innerHTML = data.sides[Math.floor(Math.random() * data.sides.length)];
+        document.querySelector("#tray").innerHTML = randomElementFromArray(data.trays);
+        document.querySelector("#side1").innerHTML = randomElementFromArray(data.sides);
+        document.querySelector("#side2").innerHTML = randomElementFromArray(data.sides);
     }
 
 }
