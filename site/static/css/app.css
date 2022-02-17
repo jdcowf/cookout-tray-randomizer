@@ -1,0 +1,41 @@
+:root { 
+	--color-red: #ED1C24;
+	--color-yellow: #FFF200;
+	--color-white: #FDFDFE;
+	--color-black: #000000;
+	--color-bg: var(--color-red);
+	--color-header: var(--color-yellow);
+	--color-text: var(--color-white)
+}
+
+body {
+	background: var(--color-bg);
+	color: var(--color-text);
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  text-align: center;
+}
+
+:is(h1, h2) {
+	color: var(--color-header);
+	padding:  0;
+	margin: 0;
+	display: inline-block;
+	text-align: left;}
+
+h1 {
+	font-size: 7.5vw;
+	width: 100%;
+}
+
+h2 {
+	font-size: 6vw;
+	width: 80%;
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cookout Tray Randomizer</title>
+		<link rel="stylesheet" href="/static/css/app.css" media="screen">
+
+	</head>
+	<body width=100vw>
+		<h1 id="tray" class="tray"></h1>
+		<h2 id="side1" class="side"></h2>
+		<h2 id="side2" class="side"></h2>
+	</body>
+<html>
+
+<script>
+window.addEventListener('load', randomizeSelection())
+
+
+
+
+function randomizeSelection() {
+    fetch('/static/data/trays.json')
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+        updateSelection(data);
+    })
+    .catch(function (err) {
+        console.log('error: ' + err);
+    });
+    
+    function updateSelection(data) {
+        document.querySelector("#tray").innerHTML = data.trays[Math.floor(Math.random() * data.trays.length)];
+        document.querySelector("#side1").innerHTML = data.sides[Math.floor(Math.random() * data.sides.length)];
+        document.querySelector("#side2").innerHTML = data.sides[Math.floor(Math.random() * data.sides.length)];
+    }
+
+}
+
+</script>
