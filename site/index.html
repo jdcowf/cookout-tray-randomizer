@@ -2,18 +2,29 @@
 <html>
 	<head>
 		<title>Cookout Tray Randomizer</title>
+		<link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css"/>
 		<link rel="stylesheet" href="/static/css/app.css" media="screen">
 
 	</head>
-	<body width=100vw>
-		<h1 id="tray" class="tray"></h1>
-		<h2 id="side1" class="side"></h2>
-		<h2 id="side2" class="side"></h2>
-	
-	<button type="button" onClick="randomizeSelection()">Randomize</button>
 	
 	
+	<nav class="dt bg-black white w-100 border-box pa3 ph5-ns">
+        <div class="dtc v-mid w-75 tr">
+            <a class="link dim white f6 f5-ns dib" onClick="randomizeSelection()" title="Randomize">Randomize</a>
+        </div>
+    </nav>
+    
+	
+
+	<body width=100vw class="bg-red white">
+		<p id="tray" class="tray tc f1 yellow"></p>
+		<p id="side1" class="side tc f2 yellow"></p>
+		<p id="side2" class="side tc f2 yellow"></p>
 	</body>
+	
+	<footer class="bg-red">
+
+	</footer>
 <html>
 
 <script>
