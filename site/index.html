@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cookout Tray Randomizer</title>
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
+		<link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css"/>
+		<link rel="stylesheet" href="static/css/app.css" media="screen">
+	</head>
+	
+	
+	<nav class="dt bg-black white w-100 border-box pa3 ph5-ns">
+	    <div class="dtc v-mid w-25 tl">
+	        <i class="fa fa-sliders fa-3x white"></i>
+	    </div>
+        <div class="dtc v-mid w-75 tr">
+            <a class="link dim white f6 f5-ns dib" onClick="randomizeSelection()" title="Randomize"><span class="fa fa-refresh fa-3x"></span></a>
+        </div>
+    </nav>
+	
+	<body width=100vw class="bg-red white">
+		<p id="tray" class="tray tc f1 yellow"></p>
+		<p id="side1" class="side tc f2 yellow"></p>
+		<p id="side2" class="side tc f2 yellow"></p>
+	</body>
+	
+	<footer class="dt bg-black white w-100 border-box pa3 ph5-ns">
+        <a class="white fa fa-github fa-2x" href="https://github.com/jdcowf/cookout-tray-randomizer"></a>
+	</footer>
+<html>
+
+<script>
+window.addEventListener('load', randomizeSelection())
+
+
+function randomElementFromArray(a) {
+    return a[Math.floor(Math.random() * a.length)]
+}
+
+
+function randomizeSelection() {
+    fetch('static/data/trays.json')
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+        updateSelection(data);
+    })
+    .catch(function (err) {
+        console.log('error: ' + err);
+    });
+}
+
+
+function updateSelection(data) {
+    document.querySelector("#tray").innerHTML = randomElementFromArray(data.trays);
+    document.querySelector("#side1").innerHTML = randomElementFromArray(data.sides);
+    document.querySelector("#side2").innerHTML = randomElementFromArray(data.sides);
+}
+    
+</script>

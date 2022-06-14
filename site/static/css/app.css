@@ -1,0 +1,39 @@
+:root { 
+	--color-red: #ED1C24;
+	--color-yellow: #FFF200;
+	--color-white: #FDFDFE;
+	--color-black: #000000;
+	--color-bg: var(--color-red);
+	--color-header: var(--color-yellow);
+	--color-text: var(--color-white)
+}
+
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  text-align: center;
+}
+
+
+.yellow {
+    color: var(--color-yellow);
+}
+
+.red {
+    color: var(--color-red);
+}
+
+
+.white {
+    color: var(--color-white);
+}
+
+
+.bg-red {
+  background-color: var(--color-red);
+}
