@@ -1,0 +1,27 @@
+{
+	"trays" : [
+		"Big Double Burger",
+		"Regular Chicken Sandwich",
+		"Regular 1/4 Lb. Burger",
+		"Cajun Chicken Sandwich",
+		"Regular Barbeque Sandwich",
+		"Spicy Chicken Sandwich",
+		"2 Hot Dogs",
+		"Barbeque Chicken Sandwich",
+		"2 Quesadillas",
+		"3 Chicken Strips"
+	],
+	"sides" : [
+		"Bacon Wrap",
+		"Fries",
+		"Cheese Bites",
+		"Hushpuppies",
+		"Chicken Nuggets",
+		"Onion Rings",
+		"Chicken Wrap",
+		"Quesadilla",
+		"Corn Dog",
+		"Slaw",
+		"Chili"
+	]
+}
