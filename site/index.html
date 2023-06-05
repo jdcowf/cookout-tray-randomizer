@@ -32,25 +32,33 @@
 <html>
 
 <script>
-window.addEventListener('load', randomizeSelection())
-
-
 function randomElementFromArray(a) {
     return a[Math.floor(Math.random() * a.length)]
 }
 
+let trayData = null
+function getData(refresh=false) {
+    if (trayData!=null && !refresh) {
+        console.log("cache")
+        return trayData
+    }
 
-function randomizeSelection() {
     fetch('static/data/trays.json')
     .then(function (response) {
-        return response.json();
+        return response.json()
     })
     .then(function (data) {
-        updateSelection(data);
+        trayData = data
     })
     .catch(function (err) {
         console.log('error: ' + err);
     });
+}
+
+
+function randomizeSelection(refresh=false) {
+    var trayData = getData()
+    updateSelection(trayData)
 }
 
 
@@ -73,9 +81,18 @@ function getSelection() {
 
 
 function encodeTray(tray) {
-    // todo - convert tray to an integer value
-     // 4bits per selection
-    return ["123", "127", "199"][Math.floor(Math.random() * 3)]
+
+    console.log(getData()['trays'].indexOf("2 Quesadillas"))
+    console.log(getData()['sides'].indexOf("Quesadilla") << 4)
+    console.log(getData()['sides'].indexOf("Quesadilla") << 8)
+
+    console.log()
+
+    trayVal = getData()['trays'].indexOf(tray.tray)
+    s1Val   = getData()['sides'].indexOf(tray.sides[0]) << 4
+    s2Val   = getData()['sides'].indexOf(tray.sides[1]) << 8
+
+    return trayVal + s1Val + s2Val
 }
 
 
@@ -107,7 +124,7 @@ function saveSelection(selection) {
 
 function getBadge(selection) {
     var d = {
-        "123": "Earned Quesadilla Tray badge",
+        "1912": "Earned Quadilla Tray badge",
         "127": "Earned Weenie Tray badge",
         "199": "Earned The Daily Double Tray badge",
     }
@@ -115,4 +132,8 @@ function getBadge(selection) {
     return d[selection]
 }
 
+</script>
+
+<script>
+    window.addEventListener('load', randomizeSelection())
 </script>
