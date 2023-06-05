@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Cookout Tray Randomizer</title>
-	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
+    <head>
+        <title>Cookout Tray Randomizer</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css"/>
 		<link rel="stylesheet" href="static/css/app.css" media="screen">
-	</head>
+    </head>
 	
 	
 	<nav class="dt bg-black white w-100 border-box pa3 ph5-ns">
@@ -18,10 +18,13 @@
     </nav>
 	
 	<body width=100vw class="bg-red white">
-		<p id="tray" class="tray tc f1 yellow"></p>
-		<p id="side1" class="side tc f2 yellow"></p>
-		<p id="side2" class="side tc f2 yellow"></p>
+		<p id="tray" class="tray tc f1 yellow">tray</p>
+		<p id="side1" class="side tc f2 yellow">side1</p>
+		<p id="side2" class="side tc f2 yellow">side2</p>
 	</body>
+
+    <button onclick="saveSelection(getSelection())">Save Selection</button>
+    <button onclick="alert(getSavedSelection())">Get Last Selection</button>
 	
 	<footer class="dt bg-black white w-100 border-box pa3 ph5-ns">
         <a class="white fa fa-github fa-2x" href="https://github.com/jdcowf/cookout-tray-randomizer"></a>
@@ -29,25 +32,33 @@
 <html>
 
 <script>
-window.addEventListener('load', randomizeSelection())
-
-
 function randomElementFromArray(a) {
     return a[Math.floor(Math.random() * a.length)]
 }
 
+let trayData = null
+function getData(refresh=false) {
+    if (trayData!=null && !refresh) {
+        console.log("cache")
+        return trayData
+    }
 
-function randomizeSelection() {
     fetch('static/data/trays.json')
     .then(function (response) {
-        return response.json();
+        return response.json()
     })
     .then(function (data) {
-        updateSelection(data);
+        trayData = data
     })
     .catch(function (err) {
         console.log('error: ' + err);
     });
+}
+
+
+function randomizeSelection(refresh=false) {
+    var trayData = getData()
+    updateSelection(trayData)
 }
 
 
@@ -56,5 +67,73 @@ function updateSelection(data) {
     document.querySelector("#side1").innerHTML = randomElementFromArray(data.sides);
     document.querySelector("#side2").innerHTML = randomElementFromArray(data.sides);
 }
-    
+
+
+function getSelection() {
+    return {
+        "tray": document.querySelector("#tray").innerHTML,
+        "sides": [
+                document.querySelector("#side1").innerHTML,
+                document.querySelector("#side2").innerHTML
+        ]
+    }
+}
+
+
+function encodeTray(tray) {
+
+    console.log(getData()['trays'].indexOf("2 Quesadillas"))
+    console.log(getData()['sides'].indexOf("Quesadilla") << 4)
+    console.log(getData()['sides'].indexOf("Quesadilla") << 8)
+
+    console.log()
+
+    trayVal = getData()['trays'].indexOf(tray.tray)
+    s1Val   = getData()['sides'].indexOf(tray.sides[0]) << 4
+    s2Val   = getData()['sides'].indexOf(tray.sides[1]) << 8
+
+    return trayVal + s1Val + s2Val
+}
+
+
+function decodeTray(code) {
+    // todo - deconvert tray to an integer value
+     // 4bits per selection
+}
+
+
+function getSavedSelection() {
+    return window.localStorage.getItem("Selections")[-1]
+}
+
+
+function saveSelection(selection) {
+    var previousSelections = window.localStorage.getItem("Selections")
+    if (!previousSelections) {
+        previousSelections = []
+    }
+    // previousSelections.push(selection)
+    var badge = getBadge(encodeTray(selection))
+    if (badge) {
+        alert(badge)
+    }
+    console.log("Saving selection: ", JSON.stringify(selection))
+    window.localStorage.setItem("Selections", JSON.stringify(selection))
+
+}
+
+function getBadge(selection) {
+    var d = {
+        "1912": "Earned Quadilla Tray badge",
+        "127": "Earned Weenie Tray badge",
+        "199": "Earned The Daily Double Tray badge",
+    }
+    console.log(selection, d[selection])
+    return d[selection]
+}
+
+</script>
+
+<script>
+    window.addEventListener('load', randomizeSelection())
 </script>
